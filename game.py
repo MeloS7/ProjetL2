@@ -28,11 +28,17 @@ def getCopieJeu(jeu):
         Retourne une copie du jeu passe en parametre
         Quand on copie un jeu on en calcule forcement les coups valides avant
     """
+    jeuCopie=jeu
+    coupList=getCoupsValides(jeu)	#得到当前局面可以下的格子。
+    jeuCopie[2]=coupList
+    return jeuCopie
 
 def finJeu(jeu):
     """ jeu -> bool
         Retourne vrai si c'est la fin du jeu
     """
+    if game.finJeu(jeu):
+        return True
 
 def saisieCoup(jeu):
     """ jeu -> coup
@@ -40,17 +46,22 @@ def saisieCoup(jeu):
         On suppose que la fonction n'est appelee que si il y a au moins un coup valide possible
         et qu'elle retourne obligatoirement un coup valide
     """
+    return game.saisieCoup(jeu)
 
 def getCoupsValides(jeu):
     """ jeu  -> List[coup]
         Retourne la liste des coups valides dans le jeu passe en parametre
         Si None, alors on met � jour la liste des coups valides
     """
-
+    return game.getCoupsValides(jeu)
+    
 def coupValide(jeu,coup):
     """jeu*coup->bool
         Retourne vrai si le coup appartient a la liste de coups valides du jeu
-   """
+    """
+    if coup in jeu[2] :
+        return True
+        
 
 def joueCoup(jeu,coup):
     """jeu*coup->void
@@ -88,6 +99,7 @@ def affiche(jeu):
                     
          Hypothese : le contenu de chaque case ne depasse pas 5 caracteres
     """
+    game.affiche(jeu)
 
 # Fonctions utiles
 
@@ -95,45 +107,60 @@ def getPlateau(jeu):
     """ jeu  -> plateau
         Retourne le plateau du jeu passe en parametre
     """
+    return jeu[0]
 
 def getCoupsJoues(jeu):
     """ jeu  -> List[coup]
         Retourne la liste des coups joues dans le jeu passe en parametre
     """
-
+    return jeu[3]
 
 
 def getScores(jeu):
     """ jeu  -> Pair[nat nat]
         Retourne les scores du jeu passe en parametre
     """
-
+    return jeu[4]
+    
 def getJoueur(jeu):
     """ jeu  -> nat
         Retourne le joueur a qui c'est le tour de jouer dans le jeu passe en parametre
     """
-
+    return jeu[1]
 
 
 def changeJoueur(jeu):
     """ jeu  -> void
         Change le joueur a qui c'est le tour de jouer dans le jeu passe en parametre (1 ou 2)
     """
-
+    if jeu[1]==1:
+        jeu[1]=2
+    else:
+        jeu[1]=1
+        
 def getScore(jeu,joueur):
     """ jeu*nat->int
         Retourne le score du joueur
         Hypothese: le joueur est 1 ou 2
     """
-
+    if joueur==1 :
+        return jeu[4][0]
+    else:
+        return jeu[4][1]
+        
+        
 def getCaseVal(jeu, ligne, colonne):
     """ jeu*nat*nat -> nat
         Retourne le contenu de la case ligne,colonne du jeu
         Hypothese: les numeros de ligne et colonne appartiennent bien au plateau  : ligne<=getNbLignes(jeu) and colonne<=getNbColonnes(jeu)
     """
+    return jeu[0][ligne][colonne]
     
+def getNbLignes(jeu):
+    return len(jeu[0])
     
-
+def getNbColonnes(jeu):
+    return len(jeu[0][0])
 
 
 

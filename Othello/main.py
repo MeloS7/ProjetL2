@@ -19,6 +19,8 @@ def joue():
         game.joueCoup(jeu,coup)
         it+=1
     game.affiche(jeu)
-    print ("Gagnant="+str(game.getGagnant(jeu))+":"+str(game.getScore(jeu))
+    print ("Gagnant="+str(game.getGagnant(jeu))+":"+str(game.getScore(jeu)))
     return jeu
 
+jeu=game.initialiseJeu()
+game.affiche(jeu)
